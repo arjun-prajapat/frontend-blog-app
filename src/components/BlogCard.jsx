@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function BlogCard({ blog }) {
   return (
-    <div className="group rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+    <Link to={`/blog/${blog.id}`} className="group rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 hover:-translate-y-1 block">
       <div className="h-48 overflow-hidden bg-muted relative">
         <img
           src={
@@ -31,6 +32,6 @@ export default function BlogCard({ blog }) {
           {blog.content}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }

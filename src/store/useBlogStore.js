@@ -3,6 +3,7 @@ import { api } from '../lib/api';
 
 export const useBlogStore = create((set) => ({
   blogs: [],
+  currentBlog: null,
   isLoading: false,
 
   fetchBlogs: async (search = '', categorySlug = '') => {
@@ -12,6 +13,17 @@ export const useBlogStore = create((set) => ({
         params: { search, categorySlug }
       });
       set({ blogs: response.data, isLoading: false });
+    } catch (error) {
+      set({ isLoading: false });
+      console.error(error);
+    }
+  },
+
+  fetchBlogById: async (id) => {
+    set({ isLoading: true, currentBlog: null });
+    try {
+      const response = await api.get(`/blogs/${id}`);
+      set({ currentBlog: response.data, isLoading: false });
     } catch (error) {
       set({ isLoading: false });
       console.error(error);
