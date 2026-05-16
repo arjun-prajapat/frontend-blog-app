@@ -9,7 +9,7 @@ export const useCategoryStore = create((set) => ({
     set({ isLoading: true });
     try {
       const response = await api.get('/categories');
-      set({ categories: response.data, isLoading: false });
+      set({ categories: Array.isArray(response.data) ? response.data : [], isLoading: false });
     } catch (error) {
       set({ isLoading: false });
       console.error(error);

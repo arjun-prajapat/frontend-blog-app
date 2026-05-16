@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useBlogStore } from '../store/useBlogStore';
-import { useCategoryStore } from '../store/useCategoryStore';
-import BlogCard from '../components/BlogCard';
+import React, { useEffect, useState } from "react";
+import { useBlogStore } from "../store/useBlogStore";
+import { useCategoryStore } from "../store/useCategoryStore";
+import BlogCard from "../components/BlogCard";
 
 export default function Home() {
   const { blogs, fetchBlogs, isLoading } = useBlogStore();
   const { categories, fetchCategories } = useCategoryStore();
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [search, setSearch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchCategories();
@@ -25,9 +25,10 @@ export default function Home() {
             Explore the <span className="text-primary">BlogVerse</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            Discover insights, stories, and expertise from writers around the globe. Join our community of avid readers.
+            Discover insights, stories, and expertise from writers around the
+            globe. Join our community of avid readers.
           </p>
-          
+
           <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-4">
             <input
               type="text"
@@ -42,7 +43,7 @@ export default function Home() {
               className="h-12 rounded-full border border-input bg-card px-6 py-2 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm appearance-none sm:w-48"
             >
               <option value="">All Categories</option>
-              {categories.map((cat) => (
+              {categories?.map((cat) => (
                 <option key={cat.id} value={cat.slug || cat.name}>
                   {cat.name}
                 </option>
@@ -56,11 +57,14 @@ export default function Home() {
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold tracking-tight">Latest Articles</h2>
         </div>
-        
+
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="rounded-xl border bg-card p-4 shadow-sm animate-pulse">
+              <div
+                key={i}
+                className="rounded-xl border bg-card p-4 shadow-sm animate-pulse"
+              >
                 <div className="h-48 bg-muted rounded-lg mb-4"></div>
                 <div className="h-6 bg-muted rounded w-3/4 mb-3"></div>
                 <div className="h-4 bg-muted rounded w-full mb-2"></div>
@@ -70,14 +74,18 @@ export default function Home() {
           </div>
         ) : blogs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogs.map((blog) => (
+            {blogs?.map((blog) => (
               <BlogCard key={blog.id} blog={blog} />
             ))}
           </div>
         ) : (
           <div className="text-center py-20 border border-dashed rounded-xl bg-muted/30">
-            <h3 className="text-xl font-medium text-foreground mb-2">No blogs found</h3>
-            <p className="text-muted-foreground">Try adjusting your search or category filters.</p>
+            <h3 className="text-xl font-medium text-foreground mb-2">
+              No blogs found
+            </h3>
+            <p className="text-muted-foreground">
+              Try adjusting your search or category filters.
+            </p>
           </div>
         )}
       </div>

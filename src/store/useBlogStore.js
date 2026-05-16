@@ -12,7 +12,7 @@ export const useBlogStore = create((set) => ({
       const response = await api.get('/blogs', {
         params: { search, categorySlug }
       });
-      set({ blogs: response.data, isLoading: false });
+      set({ blogs: Array.isArray(response.data) ? response.data : [], isLoading: false });
     } catch (error) {
       set({ isLoading: false });
       console.error(error);
