@@ -6,3 +6,8 @@ services:
         VITE_API_URL: ${VITE_API_URL}
     ports:
       - "5173:80"
+
+networks:
+  default:
+    external: true
+    name: app-network
